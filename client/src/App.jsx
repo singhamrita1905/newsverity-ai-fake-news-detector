@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "./App.css";
 
-const API_URL = "http://localhost:5000";
+// =====================================================
+// API URL
+// =====================================================
+// Localhost ki jagah Render Environment Variable use hoga
+const API_URL = "https://newsverity-server.onrender.com";
 
 function App() {
   const [news, setNews] = useState("");
@@ -37,11 +41,9 @@ function App() {
         `${API_URL}/api/check-news`,
         {
           method: "POST",
-
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
             news: cleanNews,
           }),
@@ -54,24 +56,18 @@ function App() {
 
       if (!response.ok || !data.success) {
         throw new Error(
-          data.message ||
-            "Unable to analyze the news."
+          data.message || "Unable to analyze the news."
         );
       }
 
       setResult(data);
-
     } catch (error) {
-      console.error(
-        "Analysis Error:",
-        error
-      );
+      console.error("Analysis Error:", error);
 
       setError(
         error.message ||
           "Unable to connect to the analysis server."
       );
-
     } finally {
       setLoading(false);
     }
@@ -103,8 +99,7 @@ function App() {
 
       if (!response.ok || !data.success) {
         throw new Error(
-          data.message ||
-            "Unable to load history."
+          data.message || "Unable to load history."
         );
       }
 
@@ -124,16 +119,11 @@ function App() {
             block: "start",
           });
       }, 100);
-
     } catch (error) {
-      console.error(
-        "History Error:",
-        error
-      );
+      console.error("History Error:", error);
 
       setError(
-        error.message ||
-          "Unable to load history."
+        error.message || "Unable to load history."
       );
     }
   };
@@ -169,12 +159,8 @@ function App() {
           (item) => item._id !== id
         )
       );
-
     } catch (error) {
-      console.error(
-        "Delete Error:",
-        error
-      );
+      console.error("Delete Error:", error);
 
       setError(
         error.message ||
@@ -208,7 +194,6 @@ function App() {
       }
 
       setHistory([]);
-
     } catch (error) {
       console.error(
         "Clear History Error:",
@@ -289,19 +274,23 @@ function App() {
 
       <nav className="navbar">
         <div className="brand">
+
           <div className="brand-icon">
             N
           </div>
 
           <div>
             <h2>NewsVerity</h2>
+
             <span>
               AI News Intelligence
             </span>
           </div>
+
         </div>
 
         <div className="nav-links">
+
           <a href="#detector">
             Analyze
           </a>
@@ -316,6 +305,7 @@ function App() {
           <a href="#about">
             About
           </a>
+
         </div>
       </nav>
 
@@ -329,6 +319,7 @@ function App() {
         {/* ================= HERO ================= */}
 
         <section className="hero">
+
           <div className="hero-content">
 
             <div className="hero-badge">
@@ -350,6 +341,7 @@ function App() {
             </p>
 
           </div>
+
         </section>
 
         {/* ================= ANALYZER ================= */}
@@ -359,6 +351,7 @@ function App() {
           <div className="analyzer-header">
 
             <div>
+
               <p className="section-label">
                 NEWS ANALYZER
               </p>
@@ -371,6 +364,7 @@ function App() {
                 Paste a headline, claim, or article
                 below for AI-assisted analysis.
               </p>
+
             </div>
 
             <div className="secure-badge">
@@ -419,8 +413,13 @@ function App() {
 
           {error && (
             <div className="error-box">
+
               <span>⚠️</span>
-              <p>{error}</p>
+
+              <p>
+                {error}
+              </p>
+
             </div>
           )}
 
@@ -434,6 +433,7 @@ function App() {
               disabled={loading}
               type="button"
             >
+
               {loading ? (
                 <>
                   <span className="spinner"></span>
@@ -445,6 +445,7 @@ function App() {
                   <span>→</span>
                 </>
               )}
+
             </button>
 
             <button
@@ -470,6 +471,7 @@ function App() {
               <div className="result-top">
 
                 <div>
+
                   <p className="result-label">
                     ANALYSIS RESULT
                   </p>
@@ -477,11 +479,13 @@ function App() {
                   <div className="verdict-badge">
                     {result.prediction}
                   </div>
+
                 </div>
 
                 <div className="confidence-section">
 
                   <div className="confidence-header">
+
                     <span>
                       Confidence
                     </span>
@@ -489,15 +493,18 @@ function App() {
                     <strong>
                       {result.confidence}%
                     </strong>
+
                   </div>
 
                   <div className="progress-track">
+
                     <div
                       className="progress-fill"
                       style={{
                         width: `${result.confidence}%`,
                       }}
                     ></div>
+
                   </div>
 
                 </div>
@@ -507,27 +514,43 @@ function App() {
               <div className="result-meta">
 
                 <div>
-                  <span>Risk Level</span>
+
+                  <span>
+                    Risk Level
+                  </span>
+
+                  {/* FIXED: riskLevel */}
                   <strong>
-                    {result.risk || "N/A"}
+                    {result.riskLevel || "N/A"}
                   </strong>
+
                 </div>
 
                 <div>
-                  <span>AI Analysis</span>
+
+                  <span>
+                    AI Analysis
+                  </span>
+
                   <strong>
                     Complete
                   </strong>
+
                 </div>
 
                 <div>
-                  <span>Checked</span>
+
+                  <span>
+                    Checked
+                  </span>
+
                   <strong>
                     {formatDate(
                       result.createdAt ||
                         new Date()
                     )}
                   </strong>
+
                 </div>
 
               </div>
@@ -540,8 +563,15 @@ function App() {
                 <div className="result-section">
 
                   <div className="result-section-title">
-                    <span>01</span>
-                    <h3>Summary</h3>
+
+                    <span>
+                      01
+                    </span>
+
+                    <h3>
+                      Summary
+                    </h3>
+
                   </div>
 
                   <p>
@@ -557,8 +587,15 @@ function App() {
                 <div className="result-section">
 
                   <div className="result-section-title">
-                    <span>02</span>
-                    <h3>Why this result?</h3>
+
+                    <span>
+                      02
+                    </span>
+
+                    <h3>
+                      Why this result?
+                    </h3>
+
                   </div>
 
                   <p>
@@ -574,8 +611,15 @@ function App() {
                 <div className="result-section">
 
                   <div className="result-section-title">
-                    <span>03</span>
-                    <h3>Recommendation</h3>
+
+                    <span>
+                      03
+                    </span>
+
+                    <h3>
+                      Recommendation
+                    </h3>
+
                   </div>
 
                   <p>
@@ -605,6 +649,7 @@ function App() {
             <div className="history-top">
 
               <div>
+
                 <p className="section-label">
                   YOUR ACTIVITY
                 </p>
@@ -617,6 +662,7 @@ function App() {
                   Review your previously analyzed
                   news claims.
                 </p>
+
               </div>
 
               {history.length > 0 && (
@@ -635,7 +681,9 @@ function App() {
 
             <div className="search-wrapper">
 
-              <span>⌕</span>
+              <span>
+                ⌕
+              </span>
 
               <input
                 type="text"
